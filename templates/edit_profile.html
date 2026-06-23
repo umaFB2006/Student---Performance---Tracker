@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Profile</title>
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            background:#f4f4f4;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            height:100vh;
+        }
+
+        .container{
+            width:400px;
+            background:white;
+            padding:30px;
+            border-radius:10px;
+            box-shadow:0 0 10px rgba(0,0,0,0.2);
+        }
+
+        h2{
+            text-align:center;
+            color:#4CAF50;
+            margin-bottom:20px;
+        }
+
+        input{
+            width:100%;
+            padding:10px;
+            margin:8px 0;
+            border:1px solid #ccc;
+            border-radius:5px;
+        }
+
+        button{
+            width:100%;
+            padding:10px;
+            background:#4CAF50;
+            color:white;
+            border:none;
+            border-radius:5px;
+            cursor:pointer;
+            font-size:16px;
+        }
+
+        button:hover{
+            background:#45a049;
+        }
+
+        a{
+            display:block;
+            text-align:center;
+            margin-top:15px;
+            text-decoration:none;
+            color:#4CAF50;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <h2>Edit Profile</h2>
+
+    <form method="POST">
+
+        <label>Full Name</label>
+        <input type="text"
+               name="fullname"
+               value="{{ session['fullname'] }}"
+               required>
+
+        <label>Email</label>
+        <input type="email"
+               name="email"
+               value="{{ session['email'] }}"
+               required>
+
+        <button type="submit">
+            Update Profile
+        </button>
+
+    </form>
+
+    <a href="{{ url_for('dashboard') }}">
+        Back to Dashboard
+    </a>
+
+</div>
+
+</body>
+</html>

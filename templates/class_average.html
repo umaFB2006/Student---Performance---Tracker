@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Class Average</title>
+
+    <style>
+        body{
+            margin:0;
+            padding:0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #141e30, #243b55);
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            height:100vh;
+        }
+
+        .container{
+            background:white;
+            padding:40px;
+            width:400px;
+            border-radius:15px;
+            text-align:center;
+            box-shadow:0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        h1{
+            color:#243b55;
+            margin-bottom:30px;
+        }
+
+        select, button{
+            padding:10px;
+            font-size:16px;
+            border-radius:8px;
+            border:1px solid #ccc;
+            margin:10px;
+        }
+
+        .calculate-btn{
+            background:#2563eb;
+            color:white;
+            border:none;
+            cursor:pointer;
+        }
+
+        .calculate-btn:hover{
+            background:#1d4ed8;
+        }
+
+        .result{
+            margin-top:25px;
+            font-size:24px;
+            color:#16a34a;
+            font-weight:bold;
+        }
+
+        .back-btn{
+            display:inline-block;
+            margin-top:25px;
+            padding:10px 20px;
+            background:#dc3545;
+            color:white;
+            text-decoration:none;
+            border-radius:8px;
+        }
+
+        .back-btn:hover{
+            background:#bb2d3b;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Class Average</h1>
+
+        <form method="POST">
+
+            <select name="subject" required>
+                <option value="telugu">Telugu</option>
+                <option value="hindi">Hindi</option>
+                <option value="english">English</option>
+                <option value="social">Social</option>
+                <option value="physics">Physics</option>
+                <option value="maths">Maths</option>
+                <option value="biology">Biology</option>
+            </select>
+
+            <button type="submit" class="calculate-btn">
+                Calculate
+            </button>
+
+        </form>
+
+        {% if average %}
+            <div class="result">
+                Average Marks: {{ average }}
+            </div>
+        {% endif %}
+
+        <a href="{{ url_for('dashboard') }}" class="back-btn">
+            ← Back to Dashboard
+        </a>
+
+    </div>
+
+</body>
+</html>

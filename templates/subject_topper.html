@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Subject Topper</title>
+
+    <style>
+        body{
+            margin:0;
+            padding:0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #141e30, #243b55);
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            height:100vh;
+        }
+
+        .container{
+            background:white;
+            width:450px;
+            padding:40px;
+            border-radius:15px;
+            text-align:center;
+            box-shadow:0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        h1{
+            color:#243b55;
+            margin-bottom:30px;
+        }
+
+        select, button{
+            padding:10px;
+            font-size:16px;
+            border-radius:8px;
+            border:1px solid #ccc;
+            margin:10px;
+        }
+
+        .find-btn{
+            background:#2563eb;
+            color:white;
+            border:none;
+            cursor:pointer;
+        }
+
+        .find-btn:hover{
+            background:#1d4ed8;
+        }
+
+        .result{
+            margin-top:25px;
+            padding:20px;
+            background:#f4f4f4;
+            border-radius:10px;
+        }
+
+        .result h3{
+            color:#16a34a;
+            margin-bottom:15px;
+        }
+
+        .result p{
+            font-size:18px;
+            margin:8px 0;
+        }
+
+        .back-btn{
+            display:inline-block;
+            margin-top:25px;
+            padding:10px 20px;
+            background:#dc3545;
+            color:white;
+            text-decoration:none;
+            border-radius:8px;
+        }
+
+        .back-btn:hover{
+            background:#bb2d3b;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Subject Topper</h1>
+
+        <form method="POST">
+
+            <select name="subject" required>
+                <option value="telugu">Telugu</option>
+                <option value="hindi">Hindi</option>
+                <option value="english">English</option>
+                <option value="social">Social</option>
+                <option value="physics">Physics</option>
+                <option value="maths">Maths</option>
+                <option value="biology">Biology</option>
+            </select>
+
+            <button type="submit" class="find-btn">
+                Find Topper
+            </button>
+
+        </form>
+
+        {% if topper %}
+        <div class="result">
+
+            <h3>🏆 Top Performer</h3>
+
+            <p><strong>Name:</strong>
+                {{ topper['student_name'] }}
+            </p>
+
+            <p><strong>Roll No:</strong>
+                {{ topper['rollno'] }}
+            </p>
+
+            <p><strong>Marks:</strong>
+                {{ topper[2] }}
+            </p>
+
+        </div>
+        {% endif %}
+
+        <a href="{{ url_for('dashboard') }}" class="back-btn">
+            ← Back to Dashboard
+        </a>
+
+    </div>
+
+</body>
+</html>

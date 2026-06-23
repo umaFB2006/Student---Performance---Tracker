@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Add Grades</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+
+:root{
+--bg:#f5f7fb;
+--card:#ffffff;
+--text:#222;
+}
+
+.dark-mode{
+--bg:#111827;
+--card:#1f2937;
+--text:#ffffff;
+}
+
+body{
+background:var(--bg);
+color:var(--text);
+margin:0;
+transition:.3s;
+}
+
+.sidebar{
+position:fixed;
+left:0;
+top:0;
+width:260px;
+height:100%;
+background:
+linear-gradient(rgba(0,0,0,.75),
+rgba(0,0,0,.75)),
+url("https://images.unsplash.com/photo-1507842217343-583bb7270b66");
+background-size:cover;
+}
+
+.sidebar h3{
+color:white;
+padding:20px;
+text-align:center;
+}
+
+.sidebar a{
+display:block;
+padding:14px 25px;
+color:white;
+text-decoration:none;
+}
+
+.sidebar a:hover{
+background:rgba(255,255,255,.15);
+}
+
+.content{
+margin-left:260px;
+padding:30px;
+}
+
+.card-box{
+background:var(--card);
+padding:30px;
+border-radius:15px;
+box-shadow:0 0 15px rgba(0,0,0,.1);
+}
+
+input{
+margin-bottom:15px;
+}
+
+@media(max-width:768px){
+
+.sidebar{
+left:-260px;
+transition:.3s;
+}
+
+.sidebar.active{
+left:0;
+}
+
+.content{
+margin-left:0;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="sidebar" id="sidebar">
+
+<h3>📚 Student Tracker</h3>
+
+<a href="/dashboard">Dashboard</a>
+<a href="/add_student">Add Student</a>
+<a href="/add_grades">Add Grades</a>
+<a href="/report_card">View Report Card</a>
+<a href="/history">Student History</a>
+<a href="/logout">Logout</a>
+
+</div>
+
+<div class="content">
+
+<div class="d-flex justify-content-between mb-4">
+
+<h2>Add Student Grades</h2>
+
+<button class="btn btn-dark"
+onclick="toggleTheme()">
+🌙 Theme
+</button>
+
+</div>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+{% for category,message in messages %}
+
+<div class="alert alert-{{category}}">
+{{message}}
+</div>
+
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+<div class="card-box">
+
+<form method="POST">
+
+<input
+type="text"
+name="student_name"
+placeholder="Student Name"
+class="form-control"
+required>
+
+<input
+type="text"
+name="rollno"
+placeholder="Roll Number"
+class="form-control"
+required>
+
+<div class="row">
+
+<div class="col-md-6">
+<input type="number" min="0" max="100" name="telugu" placeholder="Telugu Marks" class="form-control" required>
+</div>
+
+<div class="col-md-6">
+<input type="number" min="0" max="100" name="hindi" placeholder="Hindi Marks" class="form-control" required>
+</div>
+
+<div class="col-md-6">
+<input type="number" min="0" max="100" name="english" placeholder="English Marks" class="form-control" required>
+</div>
+
+<div class="col-md-6">
+<input type="number" min="0" max="100" name="social" placeholder="Social Marks" class="form-control" required>
+</div>
+
+<div class="col-md-6">
+<input type="number" min="0" max="100" name="physics" placeholder="Physics Marks" class="form-control" required>
+</div>
+
+<div class="col-md-6">
+<input type="number" min="0" max="100" name="maths" placeholder="Maths Marks" class="form-control" required>
+</div>
+
+<div class="col-md-12">
+<input type="number" min="0" max="100" name="biology" placeholder="Biology Marks" class="form-control" required>
+</div>
+
+</div>
+
+<button class="btn btn-success w-100">
+Save Grades
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+<script>
+
+function toggleTheme(){
+
+document.body.classList.toggle("dark-mode");
+
+if(document.body.classList.contains("dark-mode")){
+localStorage.setItem("theme","dark");
+}
+else{
+localStorage.setItem("theme","light");
+}
+
+}
+
+window.onload=function(){
+
+if(localStorage.getItem("theme")==="dark"){
+document.body.classList.add("dark-mode");
+}
+
+}
+
+</script>
+
+</body>
+</html>

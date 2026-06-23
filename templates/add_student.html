@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Add Student</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+
+<style>
+
+:root{
+    --bg:#f5f7fb;
+    --card:#ffffff;
+    --text:#222;
+}
+
+.dark-mode{
+    --bg:#111827;
+    --card:#1f2937;
+    --text:#ffffff;
+}
+
+body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    transition:.3s;
+}
+
+/* Sidebar */
+
+.sidebar{
+    position:fixed;
+    width:260px;
+    height:100%;
+    left:0;
+    top:0;
+    background:
+    linear-gradient(rgba(0,0,0,.75),
+    rgba(0,0,0,.75)),
+    url("https://images.unsplash.com/photo-1507842217343-583bb7270b66");
+
+    background-size:cover;
+    background-position:center;
+}
+
+.sidebar h3{
+    color:white;
+    text-align:center;
+    padding:20px;
+}
+
+.sidebar a{
+    display:block;
+    color:white;
+    text-decoration:none;
+    padding:15px 25px;
+    font-size:18px;
+}
+
+.sidebar a:hover{
+    background:rgba(255,255,255,.15);
+}
+
+/* Content */
+
+.content{
+    margin-left:260px;
+    padding:30px;
+}
+
+.form-card{
+    background:var(--card);
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 0 15px rgba(0,0,0,.1);
+}
+
+.form-control,
+.form-select{
+    background-color:#ffffff !important;
+    color:#000000 !important;
+}
+
+.dark-mode .form-control,
+.dark-mode .form-select{
+    background:#374151 !important;
+    color:white !important;
+}
+
+.dark-mode .form-label{
+    color:white;
+}
+
+.dark-mode .table{
+    color:white;
+}
+
+.dark-mode .table td,
+.dark-mode .table th{
+    background:#1f2937;
+    color:white;
+}
+
+.hamburger{
+    display:none;
+}
+
+/* Mobile */
+
+@media(max-width:768px){
+
+.sidebar{
+    left:-260px;
+    transition:.3s;
+}
+
+.sidebar.active{
+    left:0;
+}
+
+.content{
+    margin-left:0;
+}
+
+.hamburger{
+    display:block;
+    font-size:28px;
+    cursor:pointer;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- Sidebar -->
+
+<div class="sidebar" id="sidebar">
+
+    <h3>📚 Student Tracker</h3>
+
+    <a href="/dashboard">
+        <i class="fas fa-home"></i> Dashboard
+    </a>
+
+    <a href="/add_student">
+        <i class="fas fa-user-plus"></i> Add Student
+    </a>
+
+    <a href="/add_grades">
+        <i class="fas fa-pen"></i> Add Grades
+    </a>
+
+    <a href="/report_card">
+        <i class="fas fa-file-alt"></i> Report Card
+    </a>
+
+    <a href="/history">
+        <i class="fas fa-clock"></i> Student History
+    </a>
+
+    <a href="/logout">
+        <i class="fas fa-sign-out-alt"></i> Logout
+    </a>
+
+</div>
+
+<!-- Content -->
+
+<div class="content">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div class="hamburger"
+        onclick="toggleSidebar()">
+            ☰
+        </div>
+
+        <button
+        type="button"
+        class="btn btn-dark"
+        onclick="toggleTheme()">
+            🌙 Theme
+        </button>
+
+    </div>
+
+    <div class="form-card">
+
+        <h2 class="mb-4">Add Student</h2>
+
+        <!-- Flash Messages -->
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category,message in messages %}
+
+        <div class="alert alert-{{ category }}">
+            {{ message }}
+        </div>
+
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        <!-- Form -->
+
+        <form method="POST">
+
+            <div class="mb-3">
+
+                <label class="form-label">
+                    Full Name
+                </label>
+
+                <input
+                type="text"
+                name="fullname"
+                class="form-control"
+                required>
+
+            </div>
+
+            <div class="mb-3">
+
+                <label class="form-label">
+                    Roll Number
+                </label>
+
+                <input
+                type="text"
+                name="rollno"
+                class="form-control"
+                required>
+
+            </div>
+
+            <div class="mb-3">
+
+                <label class="form-label">
+                    Gender
+                </label>
+
+                <select
+                name="gender"
+                class="form-select"
+                required>
+
+                    <option value="">
+                        Select Gender
+                    </option>
+
+                    <option>Male</option>
+                    <option>Female</option>
+                    <option>Other</option>
+
+                </select>
+
+            </div>
+
+            <button class="btn btn-success w-100">
+                Add Student
+            </button>
+
+        </form>
+
+    </div>
+
+    <!-- Student List -->
+
+    <div class="form-card mt-5">
+
+        <h3 class="mb-3">Student List</h3>
+
+        <div class="table-responsive">
+
+            <table class="table table-bordered table-hover">
+
+                <thead class="table-dark">
+
+                    <tr>
+                        <th>Name</th>
+                        <th>Roll No</th>
+                        <th>Gender</th>
+                        <th>Action</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                {% for student in students %}
+
+                    <tr>
+
+                        <td>{{ student['fullname'] }}</td>
+                        <td>{{ student['rollno'] }}</td>
+                        <td>{{ student['gender'] }}</td>
+
+                        <td>
+
+                            <a href="{{ url_for('delete_add_student',
+                                                id=student['id']) }}"
+                               class="btn btn-danger btn-sm"
+                               onclick="return confirm('Delete this student?')">
+
+                                Delete
+
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+function toggleSidebar(){
+
+    document.getElementById("sidebar")
+    .classList.toggle("active");
+
+}
+
+function toggleTheme(){
+
+    document.body.classList.toggle("dark-mode");
+
+}
+
+setTimeout(function(){
+
+    let alerts = document.querySelectorAll(".alert");
+
+    alerts.forEach(function(alert){
+        alert.style.display="none";
+    });
+
+},3000);
+
+</script>
+
+</body>
+</html>

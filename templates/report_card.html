@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Report Card</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+
+:root{
+--bg:#f4f7fb;
+--card:#fff;
+--text:#222;
+}
+
+.dark-mode{
+--bg:#111827;
+--card:#1f2937;
+--text:#fff;
+}
+
+body{
+background:var(--bg);
+color:var(--text);
+transition:.3s;
+}
+
+.container-box{
+max-width:1000px;
+margin:auto;
+padding:30px;
+}
+
+.card-box{
+background:var(--card);
+padding:25px;
+border-radius:15px;
+box-shadow:0 0 15px rgba(0,0,0,.1);
+margin-bottom:25px;
+}
+
+.pass{
+color:green;
+font-weight:bold;
+}
+
+.fail{
+color:red;
+font-weight:bold;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container-box">
+
+<div class="d-flex justify-content-between mb-4">
+
+<h2>📚 Student Report Card</h2>
+
+<button class="btn btn-dark"
+onclick="toggleTheme()">
+🌙 Theme
+</button>
+
+</div>
+
+<!-- CHART -->
+
+<div class="card-box">
+
+<h4 class="mb-3">
+Performance Pie Chart
+</h4>
+
+<canvas id="marksChart"></canvas>
+
+</div>
+
+<!-- STUDENT INFO -->
+
+<div class="card-box">
+
+<h4>Student Information</h4>
+
+<hr>
+
+<p>
+<b>Name :</b>
+{{ report.student_name }}
+</p>
+
+<p>
+<b>Roll Number :</b>
+{{ report.rollno }}
+</p>
+
+</div>
+
+<!-- MARKS TABLE -->
+
+<div class="card-box">
+
+<h4>Marks Details</h4>
+
+<table class="table table-bordered">
+
+<tr>
+<th>Subject</th>
+<th>Marks</th>
+</tr>
+
+<tr>
+<td>Telugu</td>
+<td>{{ report.telugu }}</td>
+</tr>
+
+<tr>
+<td>Hindi</td>
+<td>{{ report.hindi }}</td>
+</tr>
+
+<tr>
+<td>English</td>
+<td>{{ report.english }}</td>
+</tr>
+
+<tr>
+<td>Social</td>
+<td>{{ report.social }}</td>
+</tr>
+
+<tr>
+<td>Physics</td>
+<td>{{ report.physics }}</td>
+</tr>
+
+<tr>
+<td>Maths</td>
+<td>{{ report.maths }}</td>
+</tr>
+
+<tr>
+<td>Biology</td>
+<td>{{ report.biology }}</td>
+</tr>
+
+</table>
+
+</div>
+
+<!-- RESULT -->
+
+<div class="card-box">
+
+<h4>Final Result</h4>
+
+<hr>
+
+<p>
+<b>Total Marks:</b>
+{{ total_marks }}/700
+</p>
+
+<p>
+<b>Average:</b>
+{{ average }}
+</p>
+
+<p>
+<b>Percentage:</b>
+{{ percentage }}%
+</p>
+
+<p>
+<b>Grade:</b>
+{{ grade }}
+</p>
+
+<p>
+
+<b>Status:</b>
+
+{% if status=="Pass" %}
+<span class="pass">
+PASS
+</span>
+{% else %}
+<span class="fail">
+FAIL
+</span>
+{% endif %}
+
+</p>
+
+</div>
+
+<div class="mt-3">
+
+    <a href="/dashboard"
+    class="btn btn-primary">
+    Back To Dashboard
+    </a>
+
+    <a href="{{ url_for('download_report') }}"
+class="btn btn-success">
+📄 Download PDF
+</a>
+
+</div>
+
+</div>
+
+<script>
+
+function toggleTheme(){
+
+document.body.classList.toggle("dark-mode");
+
+if(document.body.classList.contains("dark-mode")){
+localStorage.setItem("theme","dark");
+}
+else{
+localStorage.setItem("theme","light");
+}
+
+}
+
+window.onload=function(){
+
+if(localStorage.getItem("theme")==="dark"){
+document.body.classList.add("dark-mode");
+}
+
+}
+
+const ctx=document.getElementById('marksChart');
+
+new Chart(ctx,{
+
+type:'pie',
+
+data:{
+
+labels:[
+'Telugu',
+'Hindi',
+'English',
+'Social',
+'Physics',
+'Maths',
+'Biology'
+],
+
+datasets:[{
+
+data:[
+{{ report.telugu }},
+{{ report.hindi }},
+{{ report.english }},
+{{ report.social }},
+{{ report.physics }},
+{{ report.maths }},
+{{ report.biology }}
+],
+
+backgroundColor:[
+'#FF6384',
+'#36A2EB',
+'#FFCE56',
+'#4BC0C0',
+'#9966FF',
+'#FF9F40',
+'#2ECC71'
+]
+
+}]
+
+},
+
+options:{
+responsive:true
+}
+
+});
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,191 @@
+/* =========================
+GLOBAL THEME VARIABLES
+========================= */
+
+:root{
+
+--bg:#f4f7fb;
+--card:#ffffff;
+--text:#222;
+--shadow:0 0 15px rgba(0,0,0,.1);
+
+}
+
+.dark-mode{
+
+--bg:#111827;
+--card:#1f2937;
+--text:#ffffff;
+--shadow:0 0 15px rgba(255,255,255,.05);
+
+}
+
+/* =========================
+BODY - BOOKS THEME
+========================= */
+
+body{
+
+background:
+linear-gradient(rgba(244,247,251,.85),
+rgba(244,247,251,.85)),
+url("https://images.unsplash.com/photo-1521587760476-6c12a4b040da");
+
+background-size:cover;
+background-position:center;
+background-attachment:fixed;
+
+color:var(--text);
+font-family:'Segoe UI',sans-serif;
+transition:all .3s ease;
+
+}
+
+/* =========================
+CARDS
+========================= */
+
+.card{
+
+background:rgba(255,255,255,.88);
+backdrop-filter:blur(10px);
+
+box-shadow:0 8px 20px rgba(0,0,0,.15);
+
+border:none;
+border-radius:18px;
+
+}
+
+.dark-mode .card{
+
+background:rgba(31,41,55,.85);
+
+}
+
+/* =========================
+BUTTONS
+========================= */
+
+.btn{
+
+border-radius:10px;
+
+}
+
+/* =========================
+TABLES
+========================= */
+
+table{
+
+background:var(--card);
+
+}
+
+.table td,
+.table th{
+
+vertical-align:middle;
+
+}
+
+/* =========================
+HISTORY PAGE
+========================= */
+
+.history-container{
+
+max-width:1100px;
+margin:auto;
+padding:30px;
+
+}
+.dashboard-title{
+
+font-size:2rem;
+font-weight:bold;
+text-align:center;
+margin-bottom:25px;
+
+text-shadow:2px 2px 4px rgba(0,0,0,.2);
+
+}
+
+/* =========================
+ANIMATION
+========================= */
+
+.fade-in{
+
+animation:fadeIn .8s ease;
+
+}
+
+@keyframes fadeIn{
+
+from{
+
+opacity:0;
+transform:translateY(25px);
+
+}
+
+to{
+
+opacity:1;
+transform:translateY(0);
+
+}
+
+}
+
+/* =========================
+RESPONSIVE
+========================= */
+
+@media(max-width:768px){
+
+.history-container{
+
+padding:15px;
+
+}
+
+h2{
+
+font-size:1.5rem;
+
+}
+
+}
+.profile-container {
+    position: relative;
+}
+
+.profile-icon {
+    width: 40px;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.profile-dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    background: white;
+    width: 220px;
+    box-shadow: 0px 0px 10px gray;
+    border-radius: 10px;
+}
+
+.profile-dropdown a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: black;
+}
+
+.profile-dropdown a:hover {
+    background: #f0f0f0;
+}
